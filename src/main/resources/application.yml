@@ -1,0 +1,17 @@
+server:
+  port: 9090
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://db-odv3v-kr.vpc-pub-cdb.ntruss.com/trivi
+#    username: trivi
+#    password: trivi407!
+#
+#  jpa:
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQLDialect
+#    hibernate:
+#      ddl-auto: update
+#    generate-ddl: true
+#    show-sql: true
