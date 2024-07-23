@@ -16,6 +16,6 @@ public class Board {
     private BoardType id;
 
     @Column(length = 100, nullable = false)
-    private String board_name;
+    private String boardName;
 
 }
