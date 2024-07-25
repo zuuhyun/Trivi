@@ -7,6 +7,11 @@ spring:
     url: jdbc:mysql://db-odv3v-kr.vpc-pub-cdb.ntruss.com/trivi
     username: trivi
     password: trivi407!
+  servlet:
+    multipart:
+      max-file-size: 10MB  #최대 파일 크기
+      max-request-size: 10MB #최대 요청 크기
+      enabled: true
 
   jpa:
     database: mysql
@@ -15,3 +20,16 @@ spring:
       ddl-auto: update
     generate-ddl: true
     show-sql: true
+
+cloud:
+  aws:
+    credentials:
+      instanceProfile: true
+      access-key: test
+      secret-key: test
+    s3:
+      bucket-name: trivi407
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
