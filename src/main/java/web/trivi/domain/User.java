@@ -22,6 +22,9 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "uuid", nullable = false)
     private String uuid;
 
@@ -47,8 +50,9 @@ public class User {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    /*
     @Builder
-    public User(String email, String name, String uuid, String gender, Date birth, String phone, String triptype, String nickname, Boolean verificationYn ) {
+    public User(String email, String name, String uuid, String gender, Date birth, String phone, String triptype, String nickname, Boolean verificationYn, String password) {
         this.email = email;
         this.name = name;
         this.uuid = uuid;
@@ -59,5 +63,27 @@ public class User {
         this.nickname = nickname;
         this.verificationYn = verificationYn;
         this.createdAt = LocalDateTime.now();
+        this.password = password;
+    }
+     */
+
+    private Long kakaoId;
+
+    public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
+    public User(String username, String password, String email, Long kakaoId) {
+        this.name = username;
+        this.password = password;
+        this.email = email;
+        this.kakaoId =kakaoId;
+    }
+
+    public User kakaoIdUpdate(Long kakaoId) {
+        this.kakaoId = kakaoId;
+        return this;
     }
 }

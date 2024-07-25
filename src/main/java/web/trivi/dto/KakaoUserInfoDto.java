@@ -1,3 +1,4 @@
+
 package web.trivi.dto;
 
 import lombok.Getter;
@@ -6,15 +7,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class KakaoUserInfoDto {
-    private String name;
+    private Long id;
+    private String nickname;
     private String email;
-    private String brithday;
-    private String gender;
 
-    public KakaoUserInfoDto(String name, String email, String brithday, String gender) {
-        this.name = name;
+    public KakaoUserInfoDto(Long id, String nickname, String email) {
+        this.id = id;
+        this.nickname = nickname;
         this.email = email;
-        this.brithday = brithday;
-        this.gender = gender;
     }
 }
