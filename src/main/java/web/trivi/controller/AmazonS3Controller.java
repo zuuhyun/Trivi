@@ -25,7 +25,7 @@ public class AmazonS3Controller {
     }
 
     @DeleteMapping("/image")
-    public ResponseEntity<Void> deleteImage(@RequestParam String fileName) {
+    public ResponseEntity<Void> deleteImage(@RequestParam("fileName") String fileName) {
         awsS3Service.deleteImage(fileName);
         return ApiResponse.success(null);
     }
