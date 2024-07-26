@@ -28,4 +28,8 @@ public class BoardImage {
         this.boardId = boardId;
         this.imgPath = imgPath;
     }
+
+    public void update(String imgPath){
+        this.imgPath = imgPath;
+    }
 }

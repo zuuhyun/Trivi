@@ -7,6 +7,7 @@ import web.trivi.domain.BoardType;
 import java.util.List;
 
 public interface BoardImgRepository extends JpaRepository<BoardImage, Long> {
+    BoardImage findByBoardId(Long boardId);
     List<BoardImage> findByBoardIdAndBoardType(Long boardId, BoardType boardType);
     void deleteByBoardIdAndBoardType(Long boardId, BoardType boardType);
 }

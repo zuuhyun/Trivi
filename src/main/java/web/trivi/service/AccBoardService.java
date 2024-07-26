@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.trivi.domain.AccompanyBoard;
+import web.trivi.domain.BoardImage;
 import web.trivi.domain.BoardType;
 import web.trivi.dto.AddAccBoardRequest;
 import web.trivi.dto.AddImgPathRequest;
@@ -62,6 +63,10 @@ public class AccBoardService {
         }
 
         accompany.update(title, content, locationName);
+
+        if (request.getImgPath() != null) {
+            imgPathSaveService.update(id, BoardType.ACC, request.getImgPath());
+        }
 
         return accompany;
     }
