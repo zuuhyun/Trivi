@@ -25,4 +25,8 @@ public class AccBoardService {
     public List<AccompanyBoard> findByCity(String city){
         return accBoardRepository.findByCity(city);
     }
+
+    public void delete(long id){
+        accBoardRepository.deleteById(id);
+    }
 }

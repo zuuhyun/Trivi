@@ -48,11 +48,12 @@ public class AccBoardApiController {
         return ResponseEntity.ok()
                 .body(accompany);
     }
-/*
-   @GetMapping("/api/accompany")
-    public ResponseEntity<List<AccompanyBoard>> getAllAccompany() {
-        List<AccompanyBoardResponse> accompany = accBoardService.findAll();
 
-   }
- */
+    @DeleteMapping("/api/accompany/{id}")
+    public ResponseEntity<Void> deleteAccompany(@PathVariable("id") Long id) {
+        accBoardService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
 }
