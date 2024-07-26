@@ -77,6 +77,7 @@ public class AccBoardApiController {
     @DeleteMapping("/api/accompany/{id}")
     public ResponseEntity<Void> deleteAccompany(@PathVariable("id") long id) {
         accBoardService.delete(id);
+        imgPathSaveService.delete(id,BoardType.ACC);
 
         return ResponseEntity.ok()
                 .build();

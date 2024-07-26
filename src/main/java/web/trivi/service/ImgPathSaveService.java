@@ -2,6 +2,7 @@ package web.trivi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.trivi.domain.BoardImage;
 import web.trivi.domain.BoardType;
 import web.trivi.dto.AddImgPathRequest;
@@ -21,8 +22,14 @@ public class ImgPathSaveService {
     public List<BoardImage> findAll(){
         return boardImgRepository.findAll();
     }
+
     public List<BoardImage> findAllByBoardIdAndBoardType(Long boardId, BoardType boardType) {
         return boardImgRepository.findByBoardIdAndBoardType(boardId, boardType);
+    }
+
+    @Transactional
+    public void delete(Long boardId, BoardType boardType){
+        boardImgRepository.deleteByBoardIdAndBoardType(boardId, boardType);
     }
 }
 
