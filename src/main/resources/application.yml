@@ -26,7 +26,7 @@ cloud:
     credentials:
       instanceProfile: true
       access-key: ${ACCESS_KEY}
-      secret-key: ${SECRET_KEY}
+      secret-key: Nx/5ZnYcXZmr61C+8adyM3CUdHjueZmPdh7WHvrH
     s3:
       bucket-name: trivi407
     region:
