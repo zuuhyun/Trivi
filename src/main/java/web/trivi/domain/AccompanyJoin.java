@@ -41,4 +41,9 @@ public class AccompanyJoin {
         this.status = status;
         this.createdAt = createdAt;
     }
+
+    public void update(AccJoinStatus status, LocalDateTime updatedAt){
+        this.status = status;
+        this.updatedAt = updatedAt;
+    }
 }
