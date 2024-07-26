@@ -46,7 +46,7 @@ public class AccompanyBoard {
     @Column(nullable = false)
     private int currentPeople;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AccStatus status;
 
