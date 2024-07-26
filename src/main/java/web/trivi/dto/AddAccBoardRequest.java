@@ -20,12 +20,11 @@ public class AddAccBoardRequest {
     private String nation;
     private String locationName;
     private LocalDateTime meetingTime;
-    private String status;
     private Long totalView;
     private Long totalLike;
     private String author;
     private BoardType boardType;
-    private AccStatus accStatus;
+    private AccStatus status;
 
     public AccompanyBoard toEntity() {
         return AccompanyBoard.builder()

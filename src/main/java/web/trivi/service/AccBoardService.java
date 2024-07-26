@@ -6,6 +6,8 @@ import web.trivi.domain.AccompanyBoard;
 import web.trivi.dto.AddAccBoardRequest;
 import web.trivi.repository.AccBoardRepository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class AccBoardService {
@@ -13,5 +15,13 @@ public class AccBoardService {
 
     public AccompanyBoard save(AddAccBoardRequest request){
         return accBoardRepository.save(request.toEntity());
+    }
+
+    public List<AccompanyBoard> findAll(){
+        return accBoardRepository.findAll();
+    }
+
+    public AccompanyBoard findById(Long id){
+        return accBoardRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("not found:" + id));
     }
 }

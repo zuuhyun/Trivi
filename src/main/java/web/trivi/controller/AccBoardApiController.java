@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import web.trivi.domain.AccompanyBoard;
+import web.trivi.dto.AccBoardResponse;
 import web.trivi.dto.AddAccBoardRequest;
 import web.trivi.service.AccBoardService;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,4 +26,22 @@ public class AccBoardApiController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedAcc);
     }
+
+    @GetMapping("/api/accompany")
+    public ResponseEntity<List<AccBoardResponse>> findAllAccompany() {
+        List<AccBoardResponse> accompany = accBoardService.findAll()
+                .stream()
+                .map(AccBoardResponse::new)
+                .toList();
+
+        return ResponseEntity.ok()
+                .body(accompany);
+    }
+/*
+   @GetMapping("/api/accompany")
+    public ResponseEntity<List<AccompanyBoard>> getAllAccompany() {
+        List<AccompanyBoardResponse> accompany = accBoardService.findAll();
+
+   }
+ */
 }
