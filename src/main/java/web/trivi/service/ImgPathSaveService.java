@@ -7,14 +7,22 @@ import web.trivi.domain.BoardType;
 import web.trivi.dto.AddImgPathRequest;
 import web.trivi.repository.BoardImgRepository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ImgPathSaveService {
     private final BoardImgRepository boardImgRepository;
 
     public BoardImage save(AddImgPathRequest request){
-        BoardImage boardImage = request.toEntity();
-        return boardImgRepository.save(boardImage);
+        return boardImgRepository.save(request.toEntity());
+    }
+
+    public List<BoardImage> findAll(){
+        return boardImgRepository.findAll();
+    }
+    public List<BoardImage> findAllByBoardIdAndBoardType(Long boardId, BoardType boardType) {
+        return boardImgRepository.findByBoardIdAndBoardType(boardId, boardType);
     }
 }
 
