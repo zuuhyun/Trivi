@@ -25,11 +25,11 @@ cloud:
   aws:
     credentials:
       instanceProfile: true
-      access-key: test
-      secret-key: test
+      access-key: ${ACCESS_KEY}
+      secret-key: ${SECRET_KEY}
     s3:
       bucket-name: trivi407
     region:
-      static: ap-northeast-2
+      static: ${REGION}
     stack:
       auto: false
