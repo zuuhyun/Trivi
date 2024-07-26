@@ -25,6 +25,7 @@ public class AddAccBoardRequest {
     private String author;
     private BoardType boardType;
     private AccStatus status;
+    private String imgPath;
 
     public AccompanyBoard toEntity() {
         return AccompanyBoard.builder()

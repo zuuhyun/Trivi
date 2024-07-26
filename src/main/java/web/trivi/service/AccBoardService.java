@@ -4,10 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.trivi.domain.AccompanyBoard;
+import web.trivi.domain.BoardImage;
+import web.trivi.domain.BoardType;
 import web.trivi.dto.AddAccBoardRequest;
+import web.trivi.dto.AddImgPathRequest;
 import web.trivi.dto.UpdateAccBoardRequest;
 import web.trivi.repository.AccBoardRepository;
-
+import web.trivi.repository.BoardImgRepository;
+import web.trivi.service.ImgPathSaveService;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +19,15 @@ import java.util.Optional;
 @Service
 public class AccBoardService {
     private final AccBoardRepository accBoardRepository;
+    private final ImgPathSaveService imgPathSaveService;
+
 
     public AccompanyBoard save(AddAccBoardRequest request){
-        return accBoardRepository.save(request.toEntity());
+        AccompanyBoard accompanyBoard = accBoardRepository.save(request.toEntity());
+        if (request.getImgPath() != null){
+            imgPathSaveService.save(new AddImgPathRequest(BoardType.ACC, accompanyBoard.getId(), request.getImgPath()));
+        }
+        return accompanyBoard;
     }
 
     public List<AccompanyBoard> findAll(){
@@ -53,6 +63,10 @@ public class AccBoardService {
         }
 
         accompany.update(title, content, locationName);
+
+        if (request.getImgPath() != null) {
+            imgPathSaveService.update(id, BoardType.ACC, request.getImgPath());
+        }
 
         return accompany;
     }

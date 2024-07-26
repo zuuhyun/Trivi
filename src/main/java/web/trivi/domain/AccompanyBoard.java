@@ -74,8 +74,9 @@ public class AccompanyBoard {
     @Column(nullable = false)
     private String author;
 
+
     @Builder
-    public AccompanyBoard(String title, String author, BoardType boardType, AccStatus accStatus, Long totalLike, Long totalView, String content, LocalDateTime createdAt, int currentPeople, String city, String locationName, LocalDateTime meetingTime, String nation, int totalPeople){
+    public AccompanyBoard(String title, String author, BoardType boardType, AccStatus accStatus, Long totalLike, Long totalView, String content, LocalDateTime createdAt, int currentPeople, String city, String locationName, LocalDateTime meetingTime, String nation, int totalPeople, String imgPath){
         this.title = title;
         this.author = author;
         this.content = content;

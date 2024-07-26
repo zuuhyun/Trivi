@@ -11,4 +11,5 @@ public class UpdateAccBoardRequest {
     private String title;
     private String content;
     private String locationName;
+    private String imgPath;
 }

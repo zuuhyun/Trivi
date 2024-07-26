@@ -6,10 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.trivi.domain.AccompanyBoard;
-import web.trivi.dto.AccBoardResponse;
-import web.trivi.dto.AddAccBoardRequest;
-import web.trivi.dto.UpdateAccBoardRequest;
+import web.trivi.domain.BoardImage;
+import web.trivi.domain.BoardType;
+import web.trivi.dto.*;
 import web.trivi.service.AccBoardService;
+import web.trivi.service.ImgPathSaveService;
+import java.util.stream.Collectors;
 
 import java.security.Principal;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
 public class AccBoardApiController {
 
     private final AccBoardService accBoardService;
+    private final ImgPathSaveService imgPathSaveService;
 
     @PostMapping("/api/accompany")
     public ResponseEntity<AccompanyBoard> addAccompany(@RequestBody AddAccBoardRequest request) {
@@ -38,6 +41,28 @@ public class AccBoardApiController {
                 .body(accompany);
     }
 
+    @GetMapping("/api/accompany/img-path")
+    public ResponseEntity<List<ImgPathResponse>> findAllImgPath() {
+        List<ImgPathResponse> imgPath = imgPathSaveService.findAll()
+                .stream()
+                .map(ImgPathResponse::new)
+                .toList();
+
+        return ResponseEntity.ok()
+                .body(imgPath);
+    }
+
+
+    @GetMapping("/api/accompany/img-path/{board-id}")
+    public ResponseEntity<List<ImgPathResponse>> findAllByBoardIdAndBoardType(@PathVariable("board-id") Long boardId) {
+        List<ImgPathResponse> imgPath = imgPathSaveService.findAllByBoardIdAndBoardType(boardId, BoardType.ACC)
+                .stream()
+                .map(ImgPathResponse::new)
+                .toList();
+        return ResponseEntity.ok()
+                .body(imgPath);
+    }
+
     @GetMapping("/api/accompany/city/{city}")
     public ResponseEntity<List<AccBoardResponse>> findAllByCity(@PathVariable("city") String city) {
         List<AccBoardResponse> accompany = accBoardService.findByCity(city)
@@ -52,6 +77,7 @@ public class AccBoardApiController {
     @DeleteMapping("/api/accompany/{id}")
     public ResponseEntity<Void> deleteAccompany(@PathVariable("id") long id) {
         accBoardService.delete(id);
+        imgPathSaveService.delete(id,BoardType.ACC);
 
         return ResponseEntity.ok()
                 .build();
