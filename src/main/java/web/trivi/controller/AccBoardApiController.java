@@ -6,10 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.trivi.domain.AccompanyBoard;
+import web.trivi.domain.BoardImage;
+import web.trivi.domain.BoardType;
 import web.trivi.dto.AccBoardResponse;
 import web.trivi.dto.AddAccBoardRequest;
+import web.trivi.dto.AddImgPathRequest;
 import web.trivi.dto.UpdateAccBoardRequest;
 import web.trivi.service.AccBoardService;
+import web.trivi.service.ImgPathSaveService;
 
 import java.security.Principal;
 import java.util.List;
@@ -19,6 +23,7 @@ import java.util.List;
 public class AccBoardApiController {
 
     private final AccBoardService accBoardService;
+    private final ImgPathSaveService imgPathSaveService;
 
     @PostMapping("/api/accompany")
     public ResponseEntity<AccompanyBoard> addAccompany(@RequestBody AddAccBoardRequest request) {
