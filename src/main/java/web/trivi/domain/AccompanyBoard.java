@@ -93,8 +93,8 @@ public class AccompanyBoard {
     }
 
     public void update(String title, String content, String locationName){
-            this.title = title;
-            this.content = content;
-            this.locationName = locationName;
+        this.title = title;
+        this.content = content;
+        this.locationName = locationName;
     }
 }
