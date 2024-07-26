@@ -1,5 +1,6 @@
 package web.trivi.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,33 +23,40 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "uuid", nullable = false)
+    @Column(name = "uuid")
     private String uuid;
 
     @Column(name = "gender", nullable = false)
     private String gender;
 
     @Column(name = "birth", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date birth;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone")
     private String phone;
 
     @Column(name = "triptype", nullable = false)
     private String triptype;
 
-    @Column(name = "nickname")
+    @Column(name = "nickname", unique = true)
     private String nickname;
 
-    @Column(name = "verification_yn", nullable = false)
+    @Column(name = "verification_yn")
     private Boolean verificationYn;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    @Column(columnDefinition = "TEXT")
+    private String imgPath;
+
     @Builder
-    public User(String email, String name, String uuid, String gender, Date birth, String phone, String triptype, String nickname, Boolean verificationYn ) {
+    public User(String email, String name, String uuid, String gender, Date birth, String phone, String triptype, String nickname, Boolean verificationYn, String password, String imgPath) {
         this.email = email;
         this.name = name;
         this.uuid = uuid;
@@ -59,5 +67,7 @@ public class User {
         this.nickname = nickname;
         this.verificationYn = verificationYn;
         this.createdAt = LocalDateTime.now();
+        this.password = password;
+        this.imgPath = imgPath;
     }
 }
