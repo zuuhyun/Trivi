@@ -1,5 +1,5 @@
 package web.trivi.domain;
 
-public enum  AccStatus {
+public enum AccStatus {
     PROGRESS, END, CANCEL;
 }
