@@ -21,7 +21,6 @@ public class AccBoardService {
     private final AccBoardRepository accBoardRepository;
     private final ImgPathSaveService imgPathSaveService;
 
-
     public AccompanyBoard save(AddAccBoardRequest request){
         AccompanyBoard accompanyBoard = accBoardRepository.save(request.toEntity());
         if (request.getImgPath() != null){
@@ -62,11 +61,13 @@ public class AccBoardService {
             locationName = accompany.getLocationName();
         }
 
-        accompany.update(title, content, locationName);
-
         if (request.getImgPath() != null) {
             imgPathSaveService.update(id, BoardType.ACC, request.getImgPath());
         }
+
+        accompany.update(title, content, locationName);
+
+
 
         return accompany;
     }
