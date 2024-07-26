@@ -37,6 +37,17 @@ public class AccBoardApiController {
         return ResponseEntity.ok()
                 .body(accompany);
     }
+
+    @GetMapping("/api/accompany/city/{city}")
+    public ResponseEntity<List<AccBoardResponse>> findAllByCity(@PathVariable("city") String city) {
+        List<AccBoardResponse> accompany = accBoardService.findByCity(city)
+                .stream()
+                .map(AccBoardResponse::new)
+                .toList();
+
+        return ResponseEntity.ok()
+                .body(accompany);
+    }
 /*
    @GetMapping("/api/accompany")
     public ResponseEntity<List<AccompanyBoard>> getAllAccompany() {

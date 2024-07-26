@@ -7,6 +7,7 @@ import web.trivi.dto.AddAccBoardRequest;
 import web.trivi.repository.AccBoardRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -21,7 +22,7 @@ public class AccBoardService {
         return accBoardRepository.findAll();
     }
 
-    public AccompanyBoard findById(Long id){
-        return accBoardRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("not found:" + id));
+    public List<AccompanyBoard> findByCity(String city){
+        return accBoardRepository.findByCity(city);
     }
 }
