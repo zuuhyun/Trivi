@@ -36,7 +36,23 @@ public class AccBoardService {
     public AccompanyBoard update(long id, UpdateAccBoardRequest request){
         AccompanyBoard accompany = accBoardRepository.findById(id).orElseThrow(()->new IllegalArgumentException("not found: " + id));
 
-        accompany.update(request.getTitle(), request.getContent(), request.getLocationName());
+        String title = request.getTitle();
+        String content = request.getContent();
+        String locationName = request.getLocationName();
+
+        if (request.getTitle() == null) {
+            title = accompany.getTitle();
+        }
+
+        if (request.getContent() == null) {
+            content = accompany.getContent();
+        }
+
+        if (request.getLocationName() == null) {
+            locationName = accompany.getLocationName();
+        }
+
+        accompany.update(title, content, locationName);
 
         return accompany;
     }
