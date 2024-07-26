@@ -13,7 +13,7 @@ public class BoardImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     @Column(nullable = false)
     private BoardType boardType;
 
