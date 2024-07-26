@@ -86,7 +86,6 @@ public class AccBoardApiController {
     @PutMapping("/api/accompany/{id}")
     public ResponseEntity<AccompanyBoard> updateAccompany(@PathVariable("id") long id, @RequestBody UpdateAccBoardRequest request) {
         AccompanyBoard updatedAccompany = accBoardService.update(id, request);
-
         return ResponseEntity.ok()
                 .body(updatedAccompany);
     }
