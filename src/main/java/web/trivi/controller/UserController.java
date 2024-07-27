@@ -1,8 +1,12 @@
 package web.trivi.controller;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.trivi.domain.User;
@@ -57,24 +61,29 @@ public class UserController {
 
     // /api/v1/users/login
     @PostMapping("/login")
-    public boolean login(@RequestBody UserLoginDto loginRequest, HttpServletRequest httpServletRequest){
+    public ResponseEntity<Map<String, Object>> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 
         User user = userService.login(loginRequest);
 
         if(user==null) {
-            return false;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         // 기존의 세션 파기하고 새로운 세션 생성
         httpServletRequest.getSession().invalidate();
-        HttpSession session = httpServletRequest.getSession();
-
-        sessionList.put(session, session);
+        HttpSession session = httpServletRequest.getSession(true);
 
         //세선 30분동안 유지
         session.setMaxInactiveInterval(1800);
 
-        return true;
+        // 응답에 세션 ID 포함
+        Map<String, Object> response = new HashMap<>();
+        response.put("sessionId", session.getId());
+
+        //세션 생성 테스트
+//        sessionList.put(session, session);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/logout")
