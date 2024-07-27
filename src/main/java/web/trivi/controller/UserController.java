@@ -54,10 +54,13 @@ public class UserController {
         return true;
     }
 
+    /*
     @GetMapping("/login")
     public boolean login(){
         return true;
     }
+
+     */
 
     // /api/v1/users/login
     @PostMapping("/login")
@@ -86,22 +89,24 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    //프론트에서 세션 정보 보내줄 예정 -> 받아서 세션 죽이기 
     @GetMapping("/logout")
-    public boolean logout(HttpServletRequest request) {
+    public ResponseEntity<Boolean> logout(HttpServletRequest request) {
 
-        sessionList.remove(request.getSession());
+        //세션 테스트
+//        sessionList.remove(request.getSession());
 
-        // Session이 없으면 return null
+        // 세션이 없으면 return null
         HttpSession session = request.getSession(false);
 
         if(session != null) {
             session.invalidate();
         }
 
-        return true;
+        return ResponseEntity.ok(true);
     }
 
-
+/*
     public static Hashtable sessionList = new Hashtable();
 
     @GetMapping("/session-list")
@@ -117,5 +122,7 @@ public class UserController {
         }
         return lists;
     }
+
+ */
 
 }
