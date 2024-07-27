@@ -21,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults())
-//                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable())
                 .authorizeRequests()
 //                .requestMatchers("/security-login/info").authenticated()
                 .anyRequest().permitAll()
