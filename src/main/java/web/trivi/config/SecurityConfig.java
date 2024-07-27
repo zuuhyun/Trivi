@@ -17,15 +17,15 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
 //                .cors(Customizer.withDefaults())
 //                .csrf(csrf -> csrf.disable())
-                .authorizeRequests()
+//                .authorizeRequests()
 //                .requestMatchers("/security-login/info").authenticated()
-                .anyRequest().permitAll()
-                .and()
+//                .anyRequest().permitAll()
+//                .and()
 //                .formLogin()
 //                .usernameParameter("loginId")
 //                .passwordParameter("password")
@@ -33,16 +33,16 @@ public class SecurityConfig {
 //                .defaultSuccessUrl("/security-login")
 //                .failureUrl("/security-login/login")
 //                .and()
-                .logout(logout ->
-                        logout
-                                .logoutUrl("api/v1/users/logout")
-                                .invalidateHttpSession(true)
-                                .deleteCookies("JSESSIONID")
-                                .logoutSuccessUrl("/api/v1/users/login?logout")
-                );
+//                .logout(logout ->
+//                        logout
+//                                .logoutUrl("api/v1/users/logout")
+//                                .invalidateHttpSession(true)
+//                                .deleteCookies("JSESSIONID")
+//                                .logoutSuccessUrl("/api/v1/users/login?logout")
+//                );
 
-        return http.build();
-    }
+//        return http.build();
+//    }
 
 
 }
