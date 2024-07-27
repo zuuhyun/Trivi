@@ -19,9 +19,9 @@ public class TriviApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("*")
-						.allowedOrigins("*");
-				/*// 필요한 경우 다른 도메인 추가
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+						.allowedOrigins("*")
+						.allowedMethods("GET", "POST", "PUT", "DELETE");
+						/*
 						.allowedHeaders("*")
 						.exposedHeaders("Custom-Header")
 						.allowCredentials(true)
