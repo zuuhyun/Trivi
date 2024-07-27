@@ -33,6 +33,10 @@ public class AccBoardService {
         return accBoardRepository.findAll();
     }
 
+    public AccompanyBoard findById(long id){
+        return accBoardRepository.findById(id).orElseThrow(()->new IllegalArgumentException("not found: " + id));
+    }
+
     public List<AccompanyBoard> findByCity(String city){
         return accBoardRepository.findByCity(city);
     }
