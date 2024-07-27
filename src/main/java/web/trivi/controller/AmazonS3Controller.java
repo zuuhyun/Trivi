@@ -17,7 +17,8 @@ public class AmazonS3Controller {
     @PostMapping("/image")
     public ResponseEntity<?> s3Upload(@RequestPart(value = "image", required = false) MultipartFile image){
         String profileImage = awsS3Service.upload(image);
-        return ResponseEntity.ok(profileImage);
+        //return ResponseEntity.ok(profileImage);
+        return ApiResponse.success(profileImage);
     }
 
     @GetMapping("/delete")
