@@ -18,13 +18,7 @@ public class TriviApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedOrigins("*")
-						.allowedMethods("*")
-						.allowedHeaders("*")
-						.exposedHeaders("Custom-Header")
-						.allowCredentials(true)
-						.maxAge(3600);
+				registry.addMapping("/**").allowedOrigins("http://223.130.154.129");
 			}
 		};
 	}
