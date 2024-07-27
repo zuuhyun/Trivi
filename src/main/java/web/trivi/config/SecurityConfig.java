@@ -17,14 +17,14 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .cors(Customizer.withDefaults())
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .cors(Customizer.withDefaults())
 //                .csrf(csrf -> csrf.disable())
-//                .authorizeRequests()
+                .authorizeRequests()
 //                .requestMatchers("/security-login/info").authenticated()
-//                .anyRequest().permitAll()
+                .anyRequest().permitAll()
 //                .and()
 //                .formLogin()
 //                .usernameParameter("loginId")
@@ -39,10 +39,11 @@ public class SecurityConfig {
 //                                .invalidateHttpSession(true)
 //                                .deleteCookies("JSESSIONID")
 //                                .logoutSuccessUrl("/api/v1/users/login?logout")
-//                );
+//                )
+        ;
 
-//        return http.build();
-//    }
+        return http.build();
+    }
 
 
 }
