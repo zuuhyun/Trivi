@@ -11,9 +11,7 @@ import web.trivi.domain.BoardType;
 import web.trivi.dto.*;
 import web.trivi.service.AccBoardService;
 import web.trivi.service.ImgPathSaveService;
-import java.util.stream.Collectors;
 
-import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -41,6 +39,13 @@ public class AccBoardApiController {
                 .body(accompany);
     }
 
+    @GetMapping("/api/accompany/{id}")
+    public ResponseEntity<AccBoardResponse> findById(@PathVariable("id") long id) {
+        AccompanyBoard accompanyBoard = accBoardService.findById(id);
+        return ResponseEntity.ok()
+                .body(new AccBoardResponse(accompanyBoard));
+    }
+
     @GetMapping("/api/accompany/img-path")
     public ResponseEntity<List<ImgPathResponse>> findAllImgPath() {
         List<ImgPathResponse> imgPath = imgPathSaveService.findAll()
@@ -51,7 +56,6 @@ public class AccBoardApiController {
         return ResponseEntity.ok()
                 .body(imgPath);
     }
-
 
     @GetMapping("/api/accompany/img-path/{board-id}")
     public ResponseEntity<List<ImgPathResponse>> findAllByBoardIdAndBoardType(@PathVariable("board-id") Long boardId) {
