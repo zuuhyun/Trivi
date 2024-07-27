@@ -1,5 +1,7 @@
 package web.trivi.service;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
@@ -7,6 +9,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AwsS3Service {
@@ -64,29 +68,48 @@ public class AwsS3Service {
     }
 
     private String uploadImageToS3(MultipartFile image) throws IOException {
-        String originalFilename = image.getOriginalFilename(); //원본 파일 명
-        String extention = originalFilename.substring(originalFilename.lastIndexOf(".")); //확장자 명
+        // Generate a unique filename using UUID
+        String s3FileName = UUID.randomUUID().toString();
 
-        String s3FileName = UUID.randomUUID().toString().substring(0, 10) + originalFilename; //변경된 파일 명
+        InputStream is = null;
+        ByteArrayInputStream byteArrayInputStream = null;
 
-        InputStream is = image.getInputStream();
-        byte[] bytes = IOUtils.toByteArray(is);
+        try {
+            is = image.getInputStream();
+            byte[] bytes = IOUtils.toByteArray(is);
 
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType("image/" + extention);
-        metadata.setContentLength(bytes.length);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            ObjectMetadata metadata = new ObjectMetadata();
+            String contentType = image.getContentType();
+            if (contentType != null) {
+                metadata.setContentType(contentType);
+            }
+            metadata.setContentLength(bytes.length);
 
-        try{
-            PutObjectRequest putObjectRequest =
-                    new PutObjectRequest(bucketName, s3FileName, byteArrayInputStream, metadata)
-                            .withCannedAcl(CannedAccessControlList.PublicRead);
-            amazonS3.putObject(putObjectRequest); // put image to S3
-        }catch (Exception e){
-            throw new S3Exception(ErrorCode.PUT_OBJECT_EXCEPTION);
-        }finally {
-            byteArrayInputStream.close();
-            is.close();
+            byteArrayInputStream = new ByteArrayInputStream(bytes);
+
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, s3FileName, byteArrayInputStream, metadata);
+
+            // Remove ACL setting
+            // .withCannedAcl(CannedAccessControlList.PublicRead);
+
+            amazonS3.putObject(putObjectRequest); // Put image to S3
+
+        } catch (IOException e) {
+            log.error("IOException occurred while reading or writing file: ", e);
+            throw new IOException("Failed to read or write file", e);
+        } catch (AmazonServiceException e) {
+            log.error("AmazonServiceException occurred while uploading to S3: ", e);
+            //throw new S3Exception(ErrorCode.PUT_OBJECT_EXCEPTION, "Amazon service error: " + e.getMessage(), e);
+        } catch (SdkClientException e) {
+            log.error("SdkClientException occurred while uploading to S3: ", e);
+            //throw new S3Exception(ErrorCode.PUT_OBJECT_EXCEPTION, "SDK client error: " + e.getMessage(), e);
+        } finally {
+            if (byteArrayInputStream != null) {
+                byteArrayInputStream.close();
+            }
+            if (is != null) {
+                is.close();
+            }
         }
 
         return amazonS3.getUrl(bucketName, s3FileName).toString();
