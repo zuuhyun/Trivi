@@ -54,37 +54,31 @@ public class UserController {
         return true;
     }
 
-    /*
-    @GetMapping("/login")
-    public boolean login(){
-        return true;
-    }
-
-     */
-
     // /api/v1/users/login
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+    public ResponseEntity<Map<String, Object>> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest httpServletRequest){
 
         User user = userService.login(loginRequest);
 
         if(user==null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            Map<String, Object> response = new HashMap<>();
+            response.put("error", "Invalid username or password.");
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
-        // 기존의 세션 파기하고 새로운 세션 생성
+        // 로그인 성공시 기존의 세션 파기하고 새로운 세션 생성
         httpServletRequest.getSession().invalidate();
         HttpSession session = httpServletRequest.getSession(true);
 
         //세선 30분동안 유지
         session.setMaxInactiveInterval(1800);
 
-        // 응답에 세션 ID 포함
+        // 응답 put - 세션아이디, 이메일, 유저아이디
         Map<String, Object> response = new HashMap<>();
-        response.put("sessionId", session.getId());
-
-        //세션 생성 테스트
-//        sessionList.put(session, session);
+        response.put("session-id", session.getId());
+        response.put("user-email", user.getEmail());
+        response.put("user-id", user.getId());
 
         return ResponseEntity.ok(response);
     }
@@ -92,9 +86,6 @@ public class UserController {
     //프론트에서 세션 정보 보내줄 예정 -> 받아서 세션 죽이기 
     @GetMapping("/logout")
     public ResponseEntity<Boolean> logout(HttpServletRequest request) {
-
-        //세션 테스트
-//        sessionList.remove(request.getSession());
 
         // 세션이 없으면 return null
         HttpSession session = request.getSession(false);
@@ -105,6 +96,35 @@ public class UserController {
 
         return ResponseEntity.ok(true);
     }
+
+    @GetMapping("/mypage/user-email/{user-email}")
+    public ResponseEntity<User> getMypage(@PathVariable("user-email") String userEmail){
+
+        User user = userService.getUserByEmail(userEmail);
+
+        // 사용자 존재 여부 체크
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(user);
+
+    }
+
+    @PostMapping("/onboard/user-email/{user-email}/onboard/{onboard}")
+    public ResponseEntity<Boolean> setOnboard(@PathVariable("user-email") String userEmail,
+                                     @PathVariable("onboard") String onboard){
+
+        boolean isTriptypeUpdate = userService.modifyTriptype(onboard, userEmail);
+
+        if(isTriptypeUpdate){
+            return ResponseEntity.ok(true);
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);  // 실패한 경우
+        }
+
+    }
+
 
 /*
     public static Hashtable sessionList = new Hashtable();

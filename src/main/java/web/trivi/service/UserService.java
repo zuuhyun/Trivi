@@ -56,7 +56,7 @@ public class UserService {
         return user;
     }
 
-    public User getLoginUserByEmail(String email){
+    public User getUserByEmail(String email){
         if(email == null) {
             return null;
         }
@@ -68,6 +68,12 @@ public class UserService {
         }
 
         return optionalUser.get();
+    }
+
+    public boolean modifyTriptype(String triptype, String email){
+        int result = userRepository.updateTriptypeByEmail(triptype, email);
+
+        return result == 1 ? true : false;
     }
 
 }
