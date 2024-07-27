@@ -36,7 +36,7 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "triptype", nullable = false)
+    @Column(name = "triptype")
     private String triptype;
 
     @Column(name = "nickname", unique = true)
