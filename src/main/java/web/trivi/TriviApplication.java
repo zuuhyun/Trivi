@@ -21,8 +21,8 @@ public class TriviApplication {
 				registry.addMapping("/**")
 						.allowedOrigins("*")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
-						.allowedHeaders("*")
-						.allowCredentials(true);
+						.allowedHeaders("*");
+						//.allowCredentials(true);
 				/*
 						.exposedHeaders("Custom-Header")
 						.maxAge(3600); // 1시간 동안 preflight 요청 캐시
