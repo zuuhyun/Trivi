@@ -23,10 +23,8 @@ public class TriviApplication {
 						.allowedMethods("*")
 						.allowedHeaders("*")
 						.exposedHeaders("Custom-Header")
-						.allowCredentials(true)
-						.maxAge(3600);
+						.allowCredentials(true);
 			}
 		};
 	}
-
 }
