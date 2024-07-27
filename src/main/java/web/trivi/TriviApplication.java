@@ -21,10 +21,10 @@ public class TriviApplication {
 				registry.addMapping("/**")
 						.allowedOrigins("*")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
-						.allowedHeaders("*");
+						.allowedHeaders("*")
+						.allowCredentials(true);
 				/*
 						.exposedHeaders("Custom-Header")
-						.allowCredentials(true)
 						.maxAge(3600); // 1시간 동안 preflight 요청 캐시
 				 */
 			}
