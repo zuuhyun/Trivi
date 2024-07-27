@@ -21,6 +21,12 @@ spring:
     generate-ddl: true
     show-sql: true
 
+logging:
+  level:
+    org.springframework: DEBUG
+  file:
+    name: logs/spring-boot-application.log
+
 cloud:
   aws:
     credentials:
