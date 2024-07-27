@@ -20,9 +20,9 @@ public class TriviApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("*")
 						.allowedOrigins("*")
-						.allowedMethods("GET", "POST", "PUT", "DELETE");
-						/*
-						.allowedHeaders("*")
+						.allowedMethods("GET", "POST", "PUT", "DELETE")
+						.allowedHeaders("*");
+				/*
 						.exposedHeaders("Custom-Header")
 						.allowCredentials(true)
 						.maxAge(3600); // 1시간 동안 preflight 요청 캐시
