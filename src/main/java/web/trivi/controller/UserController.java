@@ -23,17 +23,24 @@ public class UserController {
 
     private final UserService userService;
 
+    /*
     @GetMapping("/check-email")
     public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
+
         boolean emailExists = userService.checkEmailExists(email);
+
         return ResponseEntity.ok(emailExists);
     }
 
     @GetMapping("/check-nickname")
     public ResponseEntity<Boolean> checkNickname(@RequestParam String nickname){
+
         boolean nicknameExists = userService.checkNicknameExists(nickname);
+
         return ResponseEntity.ok(nicknameExists);
     }
+
+     */
 
     // /api/v1/users/join
     @PostMapping("/join")
@@ -76,9 +83,9 @@ public class UserController {
 
         // 응답 put - 세션아이디, 이메일, 유저아이디
         Map<String, Object> response = new HashMap<>();
-        response.put("session-id", session.getId());
-        response.put("user-email", user.getEmail());
-        response.put("user-id", user.getId());
+        response.put("sessionId", session.getId());
+        response.put("userEmail", user.getEmail());
+        response.put("userId", user.getId());
 
         return ResponseEntity.ok(response);
     }
@@ -124,25 +131,5 @@ public class UserController {
         }
 
     }
-
-
-/*
-    public static Hashtable sessionList = new Hashtable();
-
-    @GetMapping("/session-list")
-    @ResponseBody
-    public Map<String, String> sessionList() {
-        Enumeration elements = sessionList.elements();
-
-        Map<String, String> lists = new HashMap<>();
-
-        while(elements.hasMoreElements()) {
-            HttpSession session = (HttpSession)elements.nextElement();
-            lists.put(session.getId(), "test");
-        }
-        return lists;
-    }
-
- */
 
 }
