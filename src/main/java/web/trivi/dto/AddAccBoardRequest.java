@@ -25,12 +25,14 @@ public class AddAccBoardRequest {
     private String author;
     private BoardType boardType;
     private AccStatus status;
+    private String userNickname;
     private String imgPath;
 
     public AccompanyBoard toEntity() {
         return AccompanyBoard.builder()
                 .title(title)
                 .author(author)
+                .userNickname(userNickname)
                 .boardType(BoardType.ACC)
                 .content(content)
                 .totalPeople(totalPeople)
@@ -40,6 +42,7 @@ public class AddAccBoardRequest {
                 .createdAt(LocalDateTime.now())
                 .locationName(locationName)
                 .meetingTime(meetingTime)
+                .boardImgPath(imgPath)
                 .totalLike(0L)
                 .totalView(0L)
                 .build();
