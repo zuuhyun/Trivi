@@ -18,11 +18,11 @@ public class TriviApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("*")
-						.allowedOrigins("*");
-				/*// 필요한 경우 다른 도메인 추가
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-						.allowedHeaders("*")
+				registry.addMapping("/**")
+						.allowedOrigins("*")
+						.allowedMethods("GET", "POST", "PUT", "DELETE")
+						.allowedHeaders("*");
+				/*
 						.exposedHeaders("Custom-Header")
 						.allowCredentials(true)
 						.maxAge(3600); // 1시간 동안 preflight 요청 캐시
