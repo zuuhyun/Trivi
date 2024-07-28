@@ -22,6 +22,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying @Transactional @Query("UPDATE User u SET u.triptype = :triptype WHERE u.email = :email")
     int updateTriptypeByEmail(String triptype, String email);
 
+    @Modifying @Transactional @Query("UPDATE User u SET u.verificationYn = :auth WHERE u.email = :email")
+    int updateAuthByEmail(Boolean auth, String email);
+
     @Query("SELECT new web.trivi.dto.UserDto(u.email, u.name, u.gender, u.birth, u.phone, u.triptype, u.nickname, u.verificationYn, u.createdAt, u.imgPath) " +
             "FROM User u WHERE u.email = :email")
     Optional<UserDto> findWithoutPasswordByEmail(@Param("email") String email);

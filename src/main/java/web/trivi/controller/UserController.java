@@ -121,7 +121,7 @@ public class UserController {
 
     @PostMapping("/onboard/user-email/{user-email}/onboard/{onboard}")
     public ResponseEntity<Boolean> setOnboard(@PathVariable("user-email") String userEmail,
-                                     @PathVariable("onboard") String onboard){
+                                              @PathVariable("onboard") String onboard){
 
         boolean isTriptypeUpdate = userService.modifyTriptype(onboard, userEmail);
 
@@ -132,5 +132,19 @@ public class UserController {
         }
 
     }
+
+    @PostMapping("/auth/{auth}/user-email/{user-email}")
+    public ResponseEntity<Boolean> setAuth(@PathVariable("user-email") String userEmail,
+                                           @PathVariable("auth") String auth){
+
+        boolean isAuthUpdate = userService.modifyAuth(auth, userEmail);
+
+        if(isAuthUpdate){
+            return ResponseEntity.ok(true);
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);  // 실패한 경우
+        }
+    }
+
 
 }
