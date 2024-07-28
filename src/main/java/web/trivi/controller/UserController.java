@@ -9,10 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import web.trivi.domain.AccompanyBoard;
 import web.trivi.domain.User;
 import web.trivi.dto.UserDto;
 import web.trivi.dto.UserJoinDto;
 import web.trivi.dto.UserLoginDto;
+import web.trivi.service.AccBoardService;
 import web.trivi.service.UserService;
 
 import java.util.*;
@@ -23,6 +25,7 @@ import java.util.*;
 public class UserController {
 
     private final UserService userService;
+    private final AccBoardService accBoardService;
 
     /*
     @GetMapping("/check-email")
@@ -144,6 +147,14 @@ public class UserController {
         }else{
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);  // 실패한 경우
         }
+    }
+
+    //마이페이지 유저 동행 작성(모집)글 정보 -> 현재는 동행 신청, 거절 구현 x
+    @GetMapping("/mypage/accompany/user-email/{user-email}")
+    public ResponseEntity<List<AccompanyBoard>> getMypageAccompanyInfo(@PathVariable("user-email") String userEmail){
+
+        return ResponseEntity.ok(accBoardService.findByAuthor(userEmail));
+
     }
 
 

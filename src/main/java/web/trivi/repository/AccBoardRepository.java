@@ -14,5 +14,6 @@ public interface AccBoardRepository extends JpaRepository<AccompanyBoard, Long> 
     List<AccompanyBoard> findByMeetingTimeAfterOrderByMeetingTimeAsc(LocalDateTime meetingTime);
     //오늘날짜기준으로높은조회수
     List<AccompanyBoard> findByMeetingTimeAfterOrderByTotalViewDesc(LocalDateTime meetingTime);
+    List<AccompanyBoard> findByAuthor(String email);
 
 }
