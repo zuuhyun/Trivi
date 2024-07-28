@@ -105,4 +105,11 @@ public class AccBoardService {
 
         return accompany;
     }
+
+
+    public List<AccompanyBoard> findByAuthor(String email){
+
+        return accBoardRepository.findByAuthor(email);
+
+    }
 }
