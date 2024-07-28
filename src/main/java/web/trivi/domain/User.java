@@ -42,7 +42,7 @@ public class User {
     @Column(name = "nickname", unique = true)
     private String nickname;
 
-    @Column(name = "verification_yn")
+    @Column(length = 1, name = "verification_yn")
     private Boolean verificationYn;
 
     @CreatedDate
