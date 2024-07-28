@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface AccBoardRepository extends JpaRepository<AccompanyBoard, Long> {
     List<AccompanyBoard> findByCity(String city);
     List<AccompanyBoard> findByCityAndMeetingTimeAfter(String city, LocalDateTime meetingTime);
+    List<AccompanyBoard> findByMeetingTimeAfterOrderByMeetingTimeAsc(LocalDateTime meetingTime);
+    //오늘날짜기준으로높은조회수
+    List<AccompanyBoard> findByMeetingTimeAfterOrderByTotalViewDesc(LocalDateTime meetingTime);
+
 }
