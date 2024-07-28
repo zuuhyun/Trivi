@@ -135,7 +135,7 @@ public class UserController {
 
     @PostMapping("/auth/{auth}/user-email/{user-email}")
     public ResponseEntity<Boolean> setAuth(@PathVariable("user-email") String userEmail,
-                                           @PathVariable("auth") String auth){
+                                           @PathVariable("auth") boolean auth){
 
         boolean isAuthUpdate = userService.modifyAuth(auth, userEmail);
 
