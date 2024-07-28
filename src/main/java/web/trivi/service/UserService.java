@@ -79,18 +79,9 @@ public class UserService {
         return result == 1 ? true : false;
     }
 
-    public boolean modifyAuth(String auth, String email){
-        Boolean authValue;
+    public boolean modifyAuth(boolean auth, String email){
 
-        if ("Y".equalsIgnoreCase(auth)) {
-            authValue = true;
-        } else if ("N".equalsIgnoreCase(auth)) {
-            authValue = false;
-        }else {
-            throw new IllegalArgumentException("Invalid value for auth: " + auth);
-        }
-
-        int result = userRepository.updateAuthByEmail(authValue, email);
+        int result = userRepository.updateAuthByEmail(auth, email);
 
         return result == 1 ? true : false;
 
