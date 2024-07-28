@@ -81,8 +81,18 @@ public class AccBoardApiController {
                 .body(accompany);
     }
 
+    @GetMapping("/api/accompany/date")
+    public ResponseEntity<List<AccBoardResponse>> getAccompanyByCityAndAfterMeetingTime(
+        @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate meetingDate){
+        List<AccBoardResponse> accompany = accBoardService.getByMeetingDateGreaterThanEqual(meetingDate)
+                .stream()
+                .map(AccBoardResponse::new)
+                .toList();
+        return ResponseEntity.ok(accompany);
+    }
+
     @GetMapping("/api/accompany/search")
-    public ResponseEntity<List<AccBoardResponse>> getBoardsByCityAndAfterMeetingTime(
+    public ResponseEntity<List<AccBoardResponse>> getAccompanyByCityAndAfterMeetingTime(
             @RequestParam("city") String city,
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate meetingDate){
             List<AccBoardResponse> accompany = accBoardService.getByCityAndMeetingDateGreaterThanEqual(city, meetingDate)

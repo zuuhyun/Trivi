@@ -61,6 +61,11 @@ public class AccBoardService {
         return accBoardRepository.findByCityAndMeetingTimeAfter(city, meetingTime);
     }
 
+    public List<AccompanyBoard> getByMeetingDateGreaterThanEqual(LocalDate meetingDate) {
+        LocalDateTime meetingTime = meetingDate.atStartOfDay();
+        return accBoardRepository.findByMeetingTimeAfterOrderByMeetingTimeAsc(meetingTime);
+    }
+
     public void delete(long id){
         accBoardRepository.deleteById(id);
     }
