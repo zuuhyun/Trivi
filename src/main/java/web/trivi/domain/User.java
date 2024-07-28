@@ -3,6 +3,7 @@ package web.trivi.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.sql.Date;
@@ -42,7 +43,7 @@ public class User {
     @Column(name = "nickname", unique = true)
     private String nickname;
 
-    @Column(length = 1, name = "verification_yn")
+    @Column(name = "verification_yn")
     private Boolean verificationYn;
 
     @CreatedDate
