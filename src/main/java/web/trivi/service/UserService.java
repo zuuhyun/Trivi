@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.trivi.domain.User;
+import web.trivi.dto.UserDto;
 import web.trivi.dto.UserJoinDto;
 import web.trivi.dto.UserLoginDto;
 import web.trivi.repository.UserRepository;
@@ -56,18 +57,20 @@ public class UserService {
         return user;
     }
 
-    public User getUserByEmail(String email){
+    public UserDto getUserByEmail(String email){
         if(email == null) {
             return null;
         }
 
-        Optional<User> optionalUser = userRepository.findByEmail(email);
+        Optional<UserDto> optionalUser = userRepository.findWithoutPasswordByEmail(email);
 
         if(optionalUser.isEmpty()) {
             return null;
         }
 
-        return optionalUser.get();
+        UserDto user = optionalUser.get();
+
+        return user;
     }
 
     public boolean modifyTriptype(String triptype, String email){

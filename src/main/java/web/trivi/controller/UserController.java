@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.trivi.domain.User;
+import web.trivi.dto.UserDto;
 import web.trivi.dto.UserJoinDto;
 import web.trivi.dto.UserLoginDto;
 import web.trivi.service.UserService;
@@ -105,9 +106,9 @@ public class UserController {
     }
 
     @GetMapping("/mypage/user-email/{user-email}")
-    public ResponseEntity<User> getMypage(@PathVariable("user-email") String userEmail){
+    public ResponseEntity<UserDto> getMypage(@PathVariable("user-email") String userEmail){
 
-        User user = userService.getUserByEmail(userEmail);
+        UserDto user = userService.getUserByEmail(userEmail);
 
         // 사용자 존재 여부 체크
         if (user == null) {
