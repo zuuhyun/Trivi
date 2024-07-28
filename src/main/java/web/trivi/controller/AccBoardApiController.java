@@ -13,6 +13,7 @@ import web.trivi.dto.*;
 import web.trivi.service.AccBoardService;
 import web.trivi.service.ImgPathSaveService;
 
+import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -88,6 +89,16 @@ public class AccBoardApiController {
                 .stream()
                 .map(AccBoardResponse::new)
                 .toList();
+        return ResponseEntity.ok(accompany);
+    }
+
+    @GetMapping("/api/accompany/top3")
+    public ResponseEntity<List<AccBoardResponse>> getAccompanyByAfterTodayOrderByViewCount(){
+        List<AccBoardResponse> accompany = accBoardService.getByAfterTodayOrderByViewCount()
+                .stream()
+                .map(AccBoardResponse::new)
+                .limit(3)  // 상위 3개의 결과만 추출
+                .collect(Collectors.toList());
         return ResponseEntity.ok(accompany);
     }
 

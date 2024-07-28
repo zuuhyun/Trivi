@@ -66,6 +66,11 @@ public class AccBoardService {
         return accBoardRepository.findByMeetingTimeAfterOrderByMeetingTimeAsc(meetingTime);
     }
 
+    public List<AccompanyBoard> getByAfterTodayOrderByViewCount() {
+        LocalDateTime today = LocalDateTime.now();
+        return accBoardRepository.findByMeetingTimeAfterOrderByTotalViewDesc(today);
+    }
+
     public void delete(long id){
         accBoardRepository.deleteById(id);
     }
