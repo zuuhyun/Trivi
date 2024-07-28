@@ -14,6 +14,9 @@ import web.trivi.repository.AccBoardRepository;
 import web.trivi.repository.BoardImgRepository;
 import web.trivi.repository.UserRepository;
 import web.trivi.service.ImgPathSaveService;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +54,11 @@ public class AccBoardService {
 
     public List<AccompanyBoard> findByCity(String city){
         return accBoardRepository.findByCity(city);
+    }
+
+    public List<AccompanyBoard> getByCityAndMeetingDateGreaterThanEqual(String city, LocalDate meetingDate) {
+        LocalDateTime meetingTime = meetingDate.atStartOfDay();
+        return accBoardRepository.findByCityAndMeetingTimeAfter(city, meetingTime);
     }
 
     public void delete(long id){

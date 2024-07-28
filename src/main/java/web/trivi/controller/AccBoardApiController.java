@@ -2,6 +2,7 @@ package web.trivi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,8 @@ import web.trivi.dto.*;
 import web.trivi.service.AccBoardService;
 import web.trivi.service.ImgPathSaveService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -76,6 +79,17 @@ public class AccBoardApiController {
 
         return ResponseEntity.ok()
                 .body(accompany);
+    }
+
+    @GetMapping("/api/accompany/search")
+    public ResponseEntity<List<AccBoardResponse>> getBoardsByCityAndAfterMeetingTime(
+            @RequestParam("city") String city,
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate meetingDate){
+            List<AccBoardResponse> accompany = accBoardService.getByCityAndMeetingDateGreaterThanEqual(city, meetingDate)
+                .stream()
+                .map(AccBoardResponse::new)
+                .toList();
+        return ResponseEntity.ok(accompany);
     }
 
     @DeleteMapping("/api/accompany/{id}")
