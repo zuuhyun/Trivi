@@ -74,9 +74,12 @@ public class AccompanyBoard {
     @Column(nullable = false)
     private String author;
 
+    private String userNickname;
+    private String boardImgPath;
+
 
     @Builder
-    public AccompanyBoard(String title, String author, BoardType boardType, AccStatus accStatus, Long totalLike, Long totalView, String content, LocalDateTime createdAt, int currentPeople, String city, String locationName, LocalDateTime meetingTime, String nation, int totalPeople, String imgPath){
+    public AccompanyBoard(String title, String author, BoardType boardType, AccStatus accStatus, Long totalLike, Long totalView, String content, LocalDateTime createdAt, int currentPeople, String city, String locationName, LocalDateTime meetingTime, String nation, int totalPeople, String userNickname, String imgPath){
         this.title = title;
         this.author = author;
         this.content = content;
@@ -91,6 +94,8 @@ public class AccompanyBoard {
         this.city = city;
         this.totalLike = totalLike;
         this.totalView = totalView;
+        this.userNickname = userNickname;
+        this.boardImgPath = imgPath;
     }
 
     public void update(String title, String content, String locationName){

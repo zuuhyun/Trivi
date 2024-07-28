@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class AccBoardResponse {
+    private Long id;
     private String title;
     private String content;
     private int totalPeople;
@@ -22,8 +23,11 @@ public class AccBoardResponse {
     private BoardType boardType;
     private AccStatus status;
     private LocalDateTime createdAt;
+    private String userNickname;
+    private String imgPath;
 
     public AccBoardResponse(AccompanyBoard accompanyBoard) {
+        this.id = accompanyBoard.getId();
         this.title = accompanyBoard.getTitle();
         this.content = accompanyBoard.getContent();
         this.totalPeople = accompanyBoard.getTotalPeople();
@@ -37,6 +41,8 @@ public class AccBoardResponse {
         this.author = accompanyBoard.getAuthor();
         this.boardType = accompanyBoard.getBoardType();
         this.createdAt = accompanyBoard.getCreatedAt();
+        this.userNickname = accompanyBoard.getUserNickname();
+        this.imgPath = accompanyBoard.getBoardImgPath();
     }
 
 }
