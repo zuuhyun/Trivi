@@ -4,6 +4,7 @@ import lombok.Getter;
 import web.trivi.domain.AccStatus;
 import web.trivi.domain.AccompanyBoard;
 import web.trivi.domain.BoardType;
+import web.trivi.domain.User;
 
 import java.time.LocalDateTime;
 
@@ -25,8 +26,9 @@ public class AccBoardResponse {
     private LocalDateTime createdAt;
     private String userNickname;
     private String imgPath;
+    private String userImgPath;
 
-    public AccBoardResponse(AccompanyBoard accompanyBoard) {
+    public AccBoardResponse(AccompanyBoard accompanyBoard, User user) {
         this.id = accompanyBoard.getId();
         this.title = accompanyBoard.getTitle();
         this.content = accompanyBoard.getContent();
@@ -43,6 +45,6 @@ public class AccBoardResponse {
         this.createdAt = accompanyBoard.getCreatedAt();
         this.userNickname = accompanyBoard.getUserNickname();
         this.imgPath = accompanyBoard.getBoardImgPath();
+        this.userImgPath = user.getImgPath();
     }
-
 }

@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import web.trivi.domain.AccompanyBoard;
 import web.trivi.domain.BoardImage;
 import web.trivi.domain.BoardType;
+import web.trivi.domain.User;
 import web.trivi.dto.*;
 import web.trivi.service.AccBoardService;
 import web.trivi.service.ImgPathSaveService;
+import web.trivi.service.UserService;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,6 +27,7 @@ public class AccBoardApiController {
 
     private final AccBoardService accBoardService;
     private final ImgPathSaveService imgPathSaveService;
+    private final UserService userService;
 
     @PostMapping("/api/accompany")
     public ResponseEntity<AccompanyBoard> addAccompany(@RequestBody AddAccBoardRequest request) {
@@ -32,11 +36,22 @@ public class AccBoardApiController {
                 .body(savedAcc);
     }
 
+    //게시판의 이메일을 기준으로 User 테이블의 프로필 사진 조회 함수
+    private AccBoardResponse toAccBoardResponse(AccompanyBoard accompanyBoard) {
+        Optional<User> userOptional = userService.findByEmail(accompanyBoard.getAuthor());
+        User user = userOptional.orElseGet(() -> {
+            User defaultUser = User.createDefaultUser();
+            defaultUser.setImgPath(null);
+            return defaultUser;
+        });
+        return new AccBoardResponse(accompanyBoard, user);
+    }
+
     @GetMapping("/api/accompany")
     public ResponseEntity<List<AccBoardResponse>> findAllAccompany() {
         List<AccBoardResponse> accompany = accBoardService.findAll()
                 .stream()
-                .map(AccBoardResponse::new)
+                .map(this::toAccBoardResponse)
                 .toList();
 
         return ResponseEntity.ok()
@@ -44,10 +59,9 @@ public class AccBoardApiController {
     }
 
     @GetMapping("/api/accompany/{id}")
-    public ResponseEntity<AccBoardResponse> findById(@PathVariable("id") long id) {
+    public ResponseEntity<?> findById(@PathVariable("id") long id) {
         AccompanyBoard accompanyBoard = accBoardService.findById(id);
-        return ResponseEntity.ok()
-                .body(new AccBoardResponse(accompanyBoard));
+        return ResponseEntity.ok().body(toAccBoardResponse(accompanyBoard));
     }
 
     @GetMapping("/api/accompany/img-path")
@@ -75,7 +89,7 @@ public class AccBoardApiController {
     public ResponseEntity<List<AccBoardResponse>> findAllByCity(@PathVariable("city") String city) {
         List<AccBoardResponse> accompany = accBoardService.findByCity(city)
                 .stream()
-                .map(AccBoardResponse::new)
+                .map(this::toAccBoardResponse)
                 .toList();
 
         return ResponseEntity.ok()
@@ -87,7 +101,7 @@ public class AccBoardApiController {
         @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate meetingDate){
         List<AccBoardResponse> accompany = accBoardService.getByMeetingDateGreaterThanEqual(meetingDate)
                 .stream()
-                .map(AccBoardResponse::new)
+                .map(this::toAccBoardResponse)
                 .toList();
         return ResponseEntity.ok(accompany);
     }
@@ -96,7 +110,7 @@ public class AccBoardApiController {
     public ResponseEntity<List<AccBoardResponse>> getAccompanyByAfterTodayOrderByViewCount(){
         List<AccBoardResponse> accompany = accBoardService.getByAfterTodayOrderByViewCount()
                 .stream()
-                .map(AccBoardResponse::new)
+                .map(this::toAccBoardResponse)
                 .limit(3)  // 상위 3개의 결과만 추출
                 .collect(Collectors.toList());
         return ResponseEntity.ok(accompany);
@@ -107,9 +121,9 @@ public class AccBoardApiController {
             @RequestParam("city") String city,
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate meetingDate){
             List<AccBoardResponse> accompany = accBoardService.getByCityAndMeetingDateGreaterThanEqual(city, meetingDate)
-                .stream()
-                .map(AccBoardResponse::new)
-                .toList();
+                    .stream()
+                    .map(this::toAccBoardResponse)
+                    .toList();
         return ResponseEntity.ok(accompany);
     }
 

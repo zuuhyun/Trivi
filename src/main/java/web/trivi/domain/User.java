@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 public class User {
     @Id
@@ -70,5 +71,12 @@ public class User {
         this.createdAt = LocalDateTime.now();
         this.password = password;
         this.imgPath = imgPath;
+    }
+
+    // 기본 User 객체를 반환하는 정적 메서드 추가
+    public static User createDefaultUser() {
+        User defaultUser = new User();
+        defaultUser.setImgPath(null);
+        return defaultUser;
     }
 }
