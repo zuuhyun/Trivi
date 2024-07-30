@@ -32,9 +32,9 @@ cloud:
     credentials:
       instanceProfile: true
       access-key: ${ACCESS_KEY}
-      secret-key: OOWYR5+UQZH++SyoQv2JNJrw0ilRSeHARJhRcQPJ
+      secret-key: Nx/5ZnYcXZmr61C+8adyM3CUdHjueZmPdh7WHvrH
     s3:
-      bucket-name: {BUCKET-NAME}
+      bucket-name: trivi407
     region:
       static: ${REGION}
     stack:
