@@ -1,12 +1,12 @@
 server:
-  port: 9090
+  port: 8080
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db-odv3v-kr.vpc-pub-cdb.ntruss.com/trivi
-    username: trivi
-    password: trivi407!
+    url: {URL}
+    username: {USER_NAME}
+    password: {PASSWORD}
   servlet:
     multipart:
       max-file-size: 10MB  #최대 파일 크기
@@ -32,7 +32,7 @@ cloud:
     credentials:
       instanceProfile: true
       access-key: ${ACCESS_KEY}
-      secret-key: OOWYR5+UQZH++SyoQv2JNJrw0ilRSeHARJhRcQPJ
+      secret-key: ${SECRET_KEY}
     s3:
       bucket-name: ${BUCKET_NAME}
     region:
