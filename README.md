@@ -13,6 +13,7 @@
 <li> 동행찾기 게시판 글쓰기, 삭제, 수정 </li>
 <li> AWS를 사용한 이미지 업로드 및 삭제</li>
 
+<br>
 
 ## 개발환경 
 <li>  Springboot</li>
@@ -20,6 +21,8 @@
 <li>  MySQL</li>
 <li>  JENKINS</li>
 <li>  AWS</li>
+
+<br>
 
 ## API 명세서
 :link: [https://interesting-sleep-d57.notion.site/API-8e0992ad230647d2a76feac5f3f523be?pvs=4](https://interesting-sleep-d57.notion.site/api-3ac1f3606732428fa55333865229f806?pvs=4)
