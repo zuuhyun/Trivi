@@ -25,7 +25,7 @@
 <br>
 
 ## API 명세서
-:link: [https://interesting-sleep-d57.notion.site/API-8e0992ad230647d2a76feac5f3f523be?pvs=4](https://interesting-sleep-d57.notion.site/api-3ac1f3606732428fa55333865229f806?pvs=4)
+:link: [[https://interesting-sleep-d57.notion.site/API-8e0992ad230647d2a76feac5f3f523be?pvs=4](https://interesting-sleep-d57.notion.site/api-3ac1f3606732428fa55333865229f806?pvs=4)](https://interesting-sleep-d57.notion.site/Trivi-API-e2f11af725c74376af1b89adff89a8bb?pvs=4)
 
 <br>
 
